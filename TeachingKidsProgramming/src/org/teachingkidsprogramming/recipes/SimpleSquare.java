@@ -11,15 +11,15 @@ public class SimpleSquare
   {
     Tortoise.hide();
     Tortoise.setSpeed(10);
-    int sides = 4;
+    int sides = 600;
     for (int i = 0; i < sides; i++)
     {
-      Tortoise.setPenColor(Colors.Blues.Blue);
-      Tortoise.setPenWidth(2);
-      // penwidth--;
+      Tortoise.setPenColor(Colors.getRandomColor());
+      Tortoise.setPenWidth(penwidth);
+      penwidth++;
       //   angle += 10;
-      Tortoise.move(50);
-      Tortoise.turn(angle);
+      Tortoise.move(1);
+      Tortoise.turn(1);
       // Tortoise.setPenWidth(penwidth);
       //  Math.random();
     }
