@@ -1,19 +1,24 @@
 package org.teachingkidsprogramming.recipes;
 
-import org.teachingextensions.logo.Colors;
 import org.teachingextensions.logo.Tortoise;
 
 public class SimpleSquare
 {
+  static int penwidth = 1;
+  static int angle    = 90;
   public static void main(String[] args) throws Exception
   {
-    Tortoise.show();
-    Tortoise.setSpeed(10);
-    for (int i = 0; i < 4; i++)
+    // Tortoise.show();
+    Tortoise.setSpeed(5);
+    for (int i = 0; i < 100; i++)
     {
-      Tortoise.setPenColor(Colors.Blues.Blue);
-      Tortoise.move(50);
-      Tortoise.turn(90);
+      penwidth++;
+      angle += 10;
+      Tortoise.move(20);
+      Tortoise.turn(angle);
+      //Tortoise.setPenWidth(penwidth);
+      //Tortoise.setPenColor(Colors.Blues.Blue) ;
+      Math.random();
     }
     //  Repeat --#5.2
   }
