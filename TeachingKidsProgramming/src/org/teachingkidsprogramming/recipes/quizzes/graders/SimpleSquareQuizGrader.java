@@ -51,7 +51,7 @@ public class SimpleSquareQuizGrader implements Paintable
   private boolean grade3Color()
   {
     quiz.question3();
-    return TortoiseUtils.getTurtle().getPenColor().equals(Color.yellow);
+    return TortoiseUtils.getTurtle().getPenColor().equals(Color.blue);
   }
   private boolean grade4Width()
   {
