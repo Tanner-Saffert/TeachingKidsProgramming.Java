@@ -17,7 +17,7 @@ public class KnottedRing
     ColorWheel.addColor(Colors.Purples.MediumVioletRed);
     ColorWheel.addColor(Colors.Reds.Crimson);
     ColorWheel.addColor(Colors.Reds.Tomato);
-    for (int i = 1; i <= 30; i++)
+    for (int i = 1; i <= 50; i++)
     {
       drawOctagon();
       Tortoise.setPenColor(ColorWheel.getRandomColorFromWheel());
