@@ -14,7 +14,7 @@ public class ExamTriangleShellFour
     int sizeofshell = MessageBox.askForNumericalInput("How big do you want the shell?");
     if (sizeofshell < 210)
     {
-      sizeofshell = MessageBox.askForNumericalInput("That is too small, please input a larger size.");
+      sizeofshell = MessageBox.askForNumericalInput("That is too small, please input a number larger than 210.");
     }
     else
     {
@@ -35,17 +35,13 @@ public class ExamTriangleShellFour
         }
       }
     }
-    //          Set the value of the number of rotations to 12
-    //          Turn the tortoise 360 times the number of rotations, then divide that by the size of the shell 
-    //    Repeat 
   }
   public static void drawTriangle()
   {
     for (int i = 1; i <= 3; i++)
     {
       Tortoise.move(length);
+      Tortoise.turn(360 / 3.1);
     }
-    Tortoise.turn(360 / 3.1);
-    //          Turn the tortoise 1/3.1 of 360 degrees 
   }
 }
