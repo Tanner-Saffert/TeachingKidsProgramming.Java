@@ -3,11 +3,12 @@ package org.teachingkidsprogramming.recipes.quizzes.graders;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import org.teachingextensions.logo.Paintable;
+import javax.swing.JPanel;
+
+import org.teachingextensions.approvals.lite.util.NumberUtils;
 import org.teachingextensions.logo.Turtle;
 import org.teachingextensions.logo.utils.TortoiseUtils;
-
-import com.spun.util.NumberUtils;
+import org.teachingextensions.logo.utils.LineAndShapeUtils.Paintable;
 
 public class SimpleSquareQuizGrader implements Paintable
 {
@@ -22,10 +23,11 @@ public class SimpleSquareQuizGrader implements Paintable
   public void grade(SquareQuiz quiz)
   {
     this.quiz = quiz;
-    answers = new boolean[]{grade1Turn(), grade2Move(), grade3Color(), grade4Width()};
+    answers = new boolean[]{grade1Move(), grade2Turn(), grade3Color(), grade4Width()};
     displayScreen();
   }
-  public void paint(Graphics2D g)
+  @Override
+  public void paint(Graphics2D g, JPanel caller)
   {
     QuizUtils.displayScores(g, 200, answers);
   }
@@ -36,16 +38,16 @@ public class SimpleSquareQuizGrader implements Paintable
     quiz.question4();
     for (int i = 0; i < 5; i++)
     {
+      quiz.question1();
       quiz.question2();
-      quiz.question1();
-      quiz.question1();
+      quiz.question2();
     }
   }
-  private boolean grade2Move()
+  private boolean grade1Move()
   {
     TortoiseUtils.setTurtle(QuizUtils.createTestTurtle());
     TortoiseUtils.setOrientation(0, 0, 90);
-    quiz.question2();
+    quiz.question1();
     return NumberUtils.equals(TortoiseUtils.getTurtle().getX(), 110, 0.005);
   }
   private boolean grade3Color()
@@ -58,13 +60,13 @@ public class SimpleSquareQuizGrader implements Paintable
     quiz.question4();
     return TortoiseUtils.getTurtle().getPenWidth() == 5;
   }
-  private boolean grade1Turn()
+  private boolean grade2Turn()
   {
     int angle = NumberUtils.getRandomInt(5, 20);
     Turtle turtle = QuizUtils.createTestTurtle();
     TortoiseUtils.setTurtle(turtle);
     turtle.setAngleInDegrees(angle);
-    quiz.question1();
+    quiz.question2();
     return NumberUtils.equals(turtle.getAngleInDegrees(), angle + 360.0 / 5, 0.005);
   }
 }

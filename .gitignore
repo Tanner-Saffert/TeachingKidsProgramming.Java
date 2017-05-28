@@ -2,8 +2,10 @@
 
 bin
 .metadata
+.recommenders
 .DS_Store
 
 # Package Files #
 *.war
 *.ear
+TeachingKidsProgramming/.virtual_proctor.txt

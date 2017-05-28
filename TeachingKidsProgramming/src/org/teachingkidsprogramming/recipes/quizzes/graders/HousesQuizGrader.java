@@ -2,25 +2,26 @@ package org.teachingkidsprogramming.recipes.quizzes.graders;
 
 import java.awt.Graphics2D;
 
-import org.teachingextensions.logo.Colors;
-import org.teachingextensions.logo.Paintable;
+import javax.swing.JPanel;
+
+import org.teachingextensions.approvals.lite.util.NumberUtils;
 import org.teachingextensions.logo.Tortoise;
 import org.teachingextensions.logo.Turtle;
 import org.teachingextensions.logo.utils.TortoiseUtils;
-
-import com.spun.util.NumberUtils;
+import org.teachingextensions.logo.utils.ColorUtils.PenColors;
+import org.teachingextensions.logo.utils.LineAndShapeUtils.Paintable;
 
 public class HousesQuizGrader implements Paintable
 {
-  private boolean[]  answers;
-  public static int  TURTLE_SPEED = 9;
-  private HousesQuiz quiz;
+  private boolean[]         answers;
+  public static int         TURTLE_SPEED = 9;
+  private HousesQuizAdapter quiz;
   private void displayScreen()
   {
     QuizUtils.prepareScoringScreen(answers, this, TURTLE_SPEED);
     drawRewardShape();
   }
-  public void grade(HousesQuiz quiz)
+  public void grade(HousesQuizAdapter quiz)
   {
     this.quiz = quiz;
     answers = new boolean[]{grade1Small(),
@@ -31,7 +32,8 @@ public class HousesQuizGrader implements Paintable
         grade6drawASide()};
     displayScreen();
   }
-  public void paint(Graphics2D g)
+  @Override
+  public void paint(Graphics2D g, JPanel caller)
   {
     QuizUtils.displayScores(g, 300, answers);
   }
@@ -50,12 +52,12 @@ public class HousesQuizGrader implements Paintable
   }
   private boolean grade2Medium()
   {
-    quiz.medium();
+    quiz.question2();
     return 21 == quiz.length;
   }
   private boolean grade3Large()
   {
-    quiz.large();
+    quiz.question3();
     return 63 == quiz.length;
   }
   private boolean grade4moveTheLength()
@@ -64,7 +66,7 @@ public class HousesQuizGrader implements Paintable
     TortoiseUtils.setTurtle(turtle);
     TortoiseUtils.setOrientation(0, 0, 90);
     quiz.length = -3;
-    quiz.moveTheLength();
+    quiz.question4();
     return NumberUtils.equals(TortoiseUtils.getTurtle().getX(), -3, 0.005);
   }
   private boolean grade5turnTheCorner()
@@ -73,7 +75,7 @@ public class HousesQuizGrader implements Paintable
     Turtle turtle = QuizUtils.createTestTurtle();
     TortoiseUtils.setTurtle(turtle);
     turtle.setAngleInDegrees(angle);
-    quiz.turnTheCorner();
+    quiz.question5();
     return NumberUtils.equals(turtle.getAngleInDegrees(), angle + (-360.0 / 3), 0.005);
   }
   private boolean grade6drawASide()
@@ -83,70 +85,70 @@ public class HousesQuizGrader implements Paintable
     TortoiseUtils.setTurtle(turtle);
     TortoiseUtils.setOrientation(0, 0, angle);
     quiz.length = -3;
-    quiz.drawASide();
+    quiz.question6();
     boolean move = NumberUtils.equals(TortoiseUtils.getTurtle().getY(), -3, 0.005);
     boolean turn = NumberUtils.equals(turtle.getAngleInDegrees(), angle + (-360.0 / 3), 0.005);
     return move && turn;
   }
   private void drawTriangle()
   {
-    Tortoise.penUp();
-    quiz.medium();
-    quiz.large();
+    Tortoise.setPenUp();
+    quiz.question2();
+    quiz.question3();
     Tortoise.move(quiz.length);
-    Tortoise.penDown();
-    quiz.turnTheCorner();
+    Tortoise.setPenDown();
+    quiz.question5();
     for (int i = 0; i < 2; i++)
     {
       Tortoise.setPenWidth(3);
-      Tortoise.setPenColor(Colors.Purples.Lavender);
-      quiz.large();
-      quiz.moveTheLength();
+      Tortoise.setPenColor(PenColors.Purples.Lavender);
+      quiz.question3();
+      quiz.question4();
       Tortoise.turn(180);
-      quiz.moveTheLength();
+      quiz.question4();
       Tortoise.turn(180);
       drawSmallerLine();
-      quiz.turnTheCorner();
+      quiz.question5();
     }
-    Tortoise.penUp();
-    quiz.large();
-    quiz.moveTheLength();
-    Tortoise.penDown();
+    Tortoise.setPenUp();
+    quiz.question3();
+    quiz.question4();
+    Tortoise.setPenDown();
     Tortoise.turn(180);
-    quiz.turnTheCorner();
+    quiz.question5();
   }
   private void drawSmallerLine()
   {
     moveMedium();
     Tortoise.turn(360.0 / 6);
     moveMedium();
-    quiz.turnTheCorner();
+    quiz.question5();
     moveMedium();
-    quiz.turnTheCorner();
+    quiz.question5();
     Tortoise.turn(180);
     moveMedium();
   }
   private void moveMedium()
   {
-    quiz.medium();
+    quiz.question2();
     Tortoise.setPenWidth(2);
-    Tortoise.setPenColor(Colors.Blues.LightBlue);
-    quiz.moveTheLength();
+    Tortoise.setPenColor(PenColors.Blues.LightBlue);
+    quiz.question4();
     Tortoise.turn(180);
-    quiz.moveTheLength();
+    quiz.question4();
     Tortoise.turn(180);
     drawSmallestLine();
   }
   private void drawSmallestLine()
   {
     Tortoise.setPenWidth(1);
-    Tortoise.setPenColor(Colors.Blues.PowderBlue);
+    Tortoise.setPenColor(PenColors.Blues.PowderBlue);
     quiz.question1();
-    quiz.moveTheLength();
+    quiz.question4();
     Tortoise.turn(360.0 / 6);
-    quiz.drawASide();
-    quiz.drawASide();
+    quiz.question6();
+    quiz.question6();
     Tortoise.turn(180);
-    quiz.moveTheLength();
+    quiz.question4();
   }
 }
